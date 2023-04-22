@@ -1,30 +1,32 @@
-# Proyecto DDD y Vertical Slicing en NestJS
+# DDD Project and Vertical Slicing in NestJS
 
-Este proyecto es un ejemplo de aplicación NestJS que implementa la arquitectura DDD (Domain Driven Design) y Vertical Slicing. 
-La aplicación permite a los usuarios registrarse, autenticarse y gestionar tareas. 
-Las tareas pueden tener imágenes de referencia, y tanto las imágenes de perfil de usuario como las imágenes de las tareas se almacenan en Amazon S3.
+| [English](README.md) | [Español](README-es.md) |
 
-## Patrones y arquitecturas planteadas
+This project is an example of a NestJS application that implements the DDD (Domain Driven Design) and Vertical Slicing architecture. 
+The application allows users to register, authenticate and manage tasks. 
+Tasks can have reference images, and both user profile images and task images are stored in Amazon S3.
+
+## Patterns and architectures proposed
 
 ### Domain Driven Design (DDD)
 
-Domain Driven Design (DDD) es un enfoque de diseño de software que se centra en el modelado de un dominio de negocio complejo y en la comunicación entre los miembros del equipo. En esta aplicación, separamos la lógica de negocio, la lógica de aplicación y la lógica de infraestructura en diferentes capas, siguiendo los principios de DDD.
+Domain Driven Design (DDD) is a software design approach that focuses on modeling a complex business domain and communication between team members. In this application, we separate business logic, application logic and infrastructure logic into different layers, following DDD principles.
 
 ### Vertical Slicing
 
-Vertical Slicing es un enfoque de arquitectura que organiza el código en "rebanadas" o "módulos" independientes y autocontenidos, que representan diferentes funcionalidades de la aplicación. En este proyecto, separamos las funcionalidades en tres módulos principales: Auth, Task y User. Cada módulo contiene sus propias capas de aplicación, dominio, infraestructura e interfaces, lo que facilita la mantenibilidad y escalabilidad del código.
+Vertical Slicing is an architectural approach that organizes code into independent, self-contained "slices" or "modules" that represent different functionalities of the application. In this project, we separate the functionality into three main modules: Auth, Task and User. Each module contains its own application, domain, infrastructure and interface layers, which facilitates maintainability and scalability of the code.
 
 ### Command Query Responsibility Segregation (CQRS)
 
-CQRS es un patrón de arquitectura que separa las operaciones de lectura (query) y escritura (command) en diferentes modelos y objetos. En este proyecto, utilizamos el patrón CQRS para manejar las operaciones de lectura y escritura relacionadas con las tareas y los usuarios. 
+CQRS is an architectural pattern that separates query and command operations into different models and objects. In this project, we use the CQRS pattern to handle read and write operations related to tasks and users. 
 
 ### Event Sourcing
 
-Event Sourcing es un patrón de arquitectura en el que los cambios en el estado de la aplicación se almacenan como una secuencia de eventos. Aunque no se implementa directamente en este ejemplo, Event Sourcing puede ser útil en combinación con CQRS para manejar eventos de dominio y mantener un registro de auditoría de los cambios en el sistema.
+Event Sourcing is an architectural pattern in which changes in application state are stored as a sequence of events. Although not directly implemented in this example, Event Sourcing can be useful in combination with CQRS to handle domain events and maintain an audit trail of system changes.
 
-## Cómo ejecutar el proyecto
+## How to run the project
 
-1. Clona el repositorio y navega al directorio del proyecto.
-2. Instala las dependencias con `npm install`.
-3. Configura las variables de entorno necesarias (por ejemplo, las credenciales de AWS S3 y MongoDB).
-4. Ejecuta la aplicación con `npm run start`.
+1. Clone the repository and navigate to the project directory.
+2. Install the dependencies with `npm install`.
+3. Configure the required environment variables (e.g. AWS S3 and MongoDB credentials).
+4. Run the application with `npm run start`.
