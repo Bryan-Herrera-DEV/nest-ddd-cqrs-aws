@@ -12,7 +12,7 @@ export class UserService {
   async registerUser(name: string, email: string, password: string): Promise<IUser> {
     const existingUser = await this.userRepository.findByEmail(email);
     if (existingUser) {
-      throw new Error('El email ya está en uso.');
+      throw new Error('User already exists');
     }
 
     const hashedPassword = await encryptPassword(password);
