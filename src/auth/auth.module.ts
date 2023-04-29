@@ -8,9 +8,15 @@ import { AuthController } from "./auth.controller";
 import { CommonModule } from "src/common/common.module";
 import { LocalProviderService } from "src/common/services/local-provider/local-provider.service";
 import { LocalStrategy } from "./infrastructure/local.strategy";
-
+import { CqrsModule } from "@nestjs/cqrs";
+import { LoginUserCommand } from "./application/commands/login-user.command";
+import { RegisterUserCommand } from "./application/commands/register-user.command";
+import { LoginUserHandler } from "./application/commands/handlers/login-user.handler";
+import { RegisterUserHandler } from "./application/commands/handlers/register-user.handler";
+import { AuthAppService } from "./application/service/auth-app.service";
 @Module({
   imports: [
+    
     UserModule,
     PassportModule,
     CommonModule,
@@ -18,12 +24,22 @@ import { LocalStrategy } from "./infrastructure/local.strategy";
       imports: [CommonModule],
       inject: [LocalProviderService],
       useFactory: async (localProviderService: LocalProviderService) => ({
-        secret:  localProviderService.getAllLocals().JWT_SECRET,
+        secret: localProviderService.getAllLocals().JWT_SECRET,
         signOptions: { expiresIn: "60m" },
       }),
     }),
+    CqrsModule,
   ],
-  providers: [AuthService, JwtStrategy, LocalStrategy],
+  providers: [
+    AuthService,
+    AuthAppService,
+    JwtStrategy,
+    LocalStrategy,
+    LoginUserCommand,
+    RegisterUserCommand,
+    LoginUserHandler,
+    RegisterUserHandler,
+  ],
   exports: [AuthService],
   controllers: [AuthController],
 })

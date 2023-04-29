@@ -1,24 +1,22 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UserAppService } from "src/user/user-app.service";
-import { UserDto } from "src/user/dto/create-user.dto";
+import { UserDto } from "src/user/domain/dto/create-user.dto";
+import { CommandBus } from "@nestjs/cqrs";
+import { RegisterUserCommand } from "./application/commands/register-user.command";
+import { LoginUserCommand } from "./application/commands/login-user.command";
 
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
-    private readonly userAppService: UserAppService
+    private readonly commandBus: CommandBus,
   ) {}
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async login(userDto: any) {
+    return this.commandBus.execute(new LoginUserCommand(userDto));
   }
 
   async register(userDto: Omit<UserDto, "_id">): Promise<Partial<UserDto>> {
-    const newUser = await this.userAppService.registerUser(userDto);
-    return { _id: newUser._id, name: newUser.name, email: newUser.email };
+    return this.commandBus.execute(new RegisterUserCommand(userDto));
   }
 }

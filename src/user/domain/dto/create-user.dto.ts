@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { User } from '../domain/user.interface'
+import { User } from '../user.interface'
 export class UserDto implements User {
     @IsString()
     _id: string;

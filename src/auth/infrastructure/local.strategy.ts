@@ -1,11 +1,11 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Strategy } from "passport-local";
 import { PassportStrategy } from "@nestjs/passport";
-import { UserAppService } from "src/user/user-app.service";
+import { UserService } from "src/user/application/user.service";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, "local") {
-  constructor(private userAppService: UserAppService) {
+  constructor(private userAppService: UserService) {
     super({
       usernameField: "email",
       passwordField: "password",
